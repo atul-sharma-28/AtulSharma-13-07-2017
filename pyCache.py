@@ -100,7 +100,6 @@ class Cache():
                         'Marks-Class3':row['Marks-Class3'],
                         'Marks-Total': int(row['Marks-Class1'])+int(row['Marks-Class2'])+int(row['Marks-Class3']),
                         })
-            #self.tempList = sorted(self.tempList, key=lambda k: k['Marks-Total'], reverse=True)
             for studentData in self.tempList:
                     self.addToWriteCache((studentData['StudentID'],studentData))
             self.tempList = None
@@ -175,9 +174,8 @@ class initApp(tk.Frame):
         if self.lb.size() > 0:
             self.lb.delete(0,tk.END)
         for key in self.dataCache.keys():
-            #print(key)
-            self.lb.insert(tk.END, "%-9s\t%-9s\t%-9s\t%-9s\t%-9s\t%-9s\t%-9s"
-                           %(self.dataCache.peekData(key)['StudentID'],self.dataCache.peekData(key)['Class1'],
+            self.lb.insert(tk.END, "{:^10} {:^10} {:^10} {:^10} {:^10} {:^10} {:^10}"
+                           .format(self.dataCache.peekData(key)['StudentID'],self.dataCache.peekData(key)['Class1'],
 				self.dataCache.peekData(key)['Class2'],self.dataCache.peekData(key)['Class3'],
                              	self.dataCache.peekData(key)['Marks-Class1'],self.dataCache.peekData(key)['Marks-Class2'],
 				self.dataCache.peekData(key)['Marks-Class3'],))
