@@ -6,7 +6,7 @@ Zycus Python/Java Developer Assignments
 1. Assumptions:
   - Requires 'tkinter' library to work.
   - Written in python 3.
-  - Both files mentioned above are in the same folder
+  - Both files mentioned below are in the same folder
 2. Files:
   - pyCache.py
   - students_dataset.py
