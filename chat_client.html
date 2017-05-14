@@ -1,0 +1,92 @@
+<html>
+<head>
+	<title>Chat Room</title>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+		<script type="text/javascript">
+		var socket = io.connect('http://' + document.domain + ':' + location.port);
+		var nickname = ''
+
+		socket.on('connect', function() {
+			socket.send({message:'New User has connected!',author:nickname});
+		});
+
+		socket.on('message', function(message) {
+			$("#messageList").append('<li class="media"><div class="media-body"><div class="media"><div class="media-body">'
+			+ message.message + '<br/><small class="text-muted">' + message.author + '</small><hr/></div></div></div></li>');
+			console.log('Received message');
+		});
+
+		function sendMessage(name){
+			var message = $("#messageText").val();
+            var author = name;
+			socket.send({message: message, author: author});
+			$('#messageText').val('');
+		}
+		
+		$(function() {
+			nickname = prompt("Enter nickname: ");
+			$("#sendMessage").on("click", function() {
+				sendMessage(nickname)
+			});
+
+			$('#messageText').keyup(function(e){
+				if(e.keyCode == 13)
+				{
+					sendMessage(nickname);
+				}
+			});
+		});
+	</script>
+
+		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    		<style type="text/css">
+			.fixed-panel {
+			    min-height: 500px;
+			    max-height: 500px;
+			}
+			.chat-list {
+			    overflow: auto;
+			}
+		</style>
+</head>
+<body>
+	<!--<script type="text/javascript">
+		$(document).ready(function() {
+			var socket = io.connect('http://127.0.0.1:5000');
+			socket.on('connect', function() {
+				socket.send('User has connected!');
+			});
+			socket.on('message', function(message) {
+				$("#messageList").append('<li class="media"><div class="media-body"><div class="media"><div class="media-body">'
+                + message + /*'<br/><small class="text-muted">' + message.author + ' | ' + message.createDate + '</small>*/'<hr/></div></div></div></li>');
+				console.log('Received message');
+			});
+			$('#sendMessage').on('click', function() {
+				socket.send($('#messageText').val());
+				$('#messageText').val('');
+			});
+		});
+	</script>-->
+	<div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <strong><span class="glyphicon glyphicon-list"></span> Chat History</strong>
+                </div>
+                <div class="panel-body fixed-panel">
+                    <ul class="chat-list" id="messageList">
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Enter Message" id="messageText" autofocus/>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-info" type="button" id="sendMessage">SEND <span class="glyphicon glyphicon-send"></span></button>
+                                    </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
