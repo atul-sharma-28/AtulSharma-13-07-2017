@@ -29,4 +29,4 @@ Zycus Python/Java Developer Assignments
   - Create a new folder called 'templates' inside the project folder and put the 'chat_client.html' file in it.
   - To run open the terminal and navigate to the project folder. Then type the command 'FLASK_APP=chatApi.py flask run
   - Open any internet browser and travel to the webpage 'http://127.0.0.1:5000'. To create a new user open a new instance of the browser and travel to the same webpage mentioned above.  
-  - View Assignment1Readme.txt for more information.
+  - View Assignment2Readme.txt for more information.
